@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Jashan Deep Singh Jandu | CEO Official</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --bg:#0b0b0b;
+  --text:#fff;
+  --card:#151515;
+  --gold:gold;
+}
+.dark{
+  --bg:#f4f4f4;
+  --text:#111;
+  --card:#ddd;
+  --gold:#c9a14a;
+}
+
+body{
+  margin:0;
+  font-family:Segoe UI, Arial;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  transition:all 0.5s;
+}
+
+/* MONEY ICON ANIMATION */
+.money{
+  position:fixed;
+  width:50px;
+  height:50px;
+  z-index:0;
+  opacity:0.7;
+  animation:floatMoney linear infinite;
+}
+@keyframes floatMoney{
+  0%{transform:translateY(100vh) rotate(0deg);}
+  100%{transform:translateY(-100px) rotate(360deg);}
+}
+
+/* HERO */
+.hero{
+  padding:80px 20px;
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+.hero img{
+  width:180px;
+  border-radius:50%;
+  border:4px solid var(--gold);
+  box-shadow:0 0 30px var(--gold);
+}
+.gold{
+  color:var(--gold);
+  text-shadow:0 0 12px var(--gold);
+}
+
+/* DARK/LIGHT BUTTON */
+.toggle-btn{
+  padding:10px 18px;
+  background:var(--gold);
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+  border-radius:6px;
+  position:absolute;
+  top:20px;
+  right:20px;
+  z-index:2;
+}
+
+/* SECTIONS */
+section{
+  padding:70px 30px;
+  max-width:1100px;
+  margin:auto;
+}
+
+/* STATS CARDS */
+.stats{
+  display:flex;
+  gap:25px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.card{
+  background:var(--card);
+  padding:25px;
+  width:220px;
+  border-radius:15px;
+  box-shadow:0 0 20px rgba(255,215,0,.25);
+  text-align:center;
+  transition:0.3s;
+}
+.card:hover{
+  transform:translateY(-10px);
+  border:2px solid var(--gold);
+}
+
+/* GRAPH */
+canvas{
+  background:var(--card);
+  border-radius:15px;
+  box-shadow:0 0 20px rgba(255,215,0,.3);
+  margin-top:30px;
+}
+
+/* CONTACT */
+input,textarea{
+  width:90%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:6px;
+  border:none;
+}
+button{
+  padding:10px 20px;
+  background:var(--gold);
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* LOGIN MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.7);
+  justify-content:center;
+  align-items:center;
+  z-index:5;
+}
+.modal-content{
+  background:var(--card);
+  padding:40px;
+  border-radius:15px;
+  text-align:center;
+  max-width:400px;
+  width:90%;
+}
+.modal input{
+  width:80%;
+  margin:10px 0;
+}
+.modal button{
+  width:50%;
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND MONEY ICONS -->
+<img src="money1.png" class="money" style="left:10%;animation-duration:12s;">
+<img src="money2.png" class="money" style="left:50%;animation-duration:15s;">
+<img src="money3.png" class="money" style="left:80%;animation-duration:18s;">
+
+<!-- DARK/LIGHT TOGGLE -->
+<button class="toggle-btn" onclick="toggleDark()">Dark/Light</button>
+
+<!-- HERO -->
+<div class="hero">
+  <img src="ceo.jpg" alt="CEO Photo">
+  <h1 class="gold">Jashan Deep Singh Jandu</h1>
+  <p>CEO & Founder | Visionary Business Leader</p>
+
+  <p style="max-width:700px;margin:auto;margin-top:20px;">
+    Welcome to my official website. I believe in building long-term value,
+    ethical leadership, and scalable business empires. Explore my journey,
+    achievements, and vision for the future.
+  </p>
+
+  <button onclick="openLogin()" style="margin-top:20px;">Login</button>
+</div>
+
+<!-- NET WORTH -->
+<section>
+<h2 class="gold">Live Net Worth</h2>
+<div class="stats">
+  <div class="card">
+    <h1 id="networth" class="gold">₹50 Cr</h1>
+    <p>Estimated Net Worth</p>
+  </div>
+  <div class="card">
+    <h1>120+</h1>
+    <p>Active Clients</p>
+  </div>
+  <div class="card">
+    <h1>30+</h1>
+    <p>Ongoing Deals</p>
+  </div>
+</div>
+</section>
+
+<!-- GRAPH -->
+<section>
+<h2 class="gold">Net Worth Growth</h2>
+<canvas id="chart" width="900" height="300"></canvas>
+</section>
+
+<!-- CONTACT -->
+<section>
+<h2 class="gold">Contact CEO</h2>
+<center>
+<input id="name" placeholder="Your Name"><br>
+<input id="email" placeholder="Email"><br>
+<textarea id="msg" placeholder="Message"></textarea><br>
+<button onclick="sendMsg()">Send</button>
+<p id="status"></p>
+</center>
+</section>
+
+<!-- LOGIN MODAL -->
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <h2>Login</h2>
+    <input id="loginUser" placeholder="Username"><br>
+    <input type="password" id="loginPass" placeholder="Password"><br>
+    <button onclick="login()">Login</button>
+    <button onclick="closeLogin()">Close</button>
+    <p id="loginStatus"></p>
+  </div>
+</div>
+
+<script>
+/* DARK/LIGHT TOGGLE */
+function toggleDark(){
+  document.body.classList.toggle("dark");
+}
+
+/* LIVE NET WORTH */
+let worth = 50;
+setInterval(()=>{
+  worth += Math.floor(Math.random()*3);
+  networth.innerText="₹"+worth+" Cr";
+},3000);
+
+/* REALISTIC GRAPH */
+const canvas=document.getElementById("chart");
+const ctx=canvas.getContext("2d");
+let points=[20,28,35,45,55,70];
+function drawGrid(){
+  ctx.strokeStyle="#333";
+  ctx.lineWidth=1;
+  for(let i=0;i<10;i++){
+    ctx.beginPath();
+    ctx.moveTo(0,i*30);
+    ctx.lineTo(canvas.width,i*30);
+    ctx.stroke();
+  }
+}
+function drawGraph(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  drawGrid();
+  ctx.strokeStyle="gold";
+  ctx.lineWidth=4;
+  ctx.beginPath();
+  points.forEach((p,i)=>{
+    let x=80+i*130;
+    let y=canvas.height-p*3;
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+  points.forEach((p,i)=>{
+    let x=80+i*130;
+    let y=canvas.height-p*3;
+    ctx.fillStyle="gold";
+    ctx.beginPath();
+    ctx.arc(x,y,6,0,Math.PI*2);
+    ctx.fill();
+  });
+}
+setInterval(()=>{
+  points.push(points[points.length-1]+Math.floor(Math.random()*10));
+  if(points.length>6) points.shift();
+  drawGraph();
+},3500);
+drawGraph();
+
+/* CONTACT FORM */
+function sendMsg(){
+  if(name.value==""||email.value==""||msg.value==""){
+    status.innerText="❌ All fields required";
+  }else{
+    status.innerText="✅ Message sent successfully";
+  }
+}
+
+/* LOGIN MODAL */
+function openLogin(){ document.getElementById("loginModal").style.display="flex"; }
+function closeLogin(){ document.getElementById("loginModal").style.display="none"; }
+function login(){
+  let user=document.getElementById("loginUser").value;
+  let pass=document.getElementById("loginPass").value;
+  if(user=="admin" && pass=="admin123"){
+    loginStatus.innerText="✅ Login Successful";
+    closeLogin();
+  }else loginStatus.innerText="❌ Wrong Credentials";
+}
+</script>
+
+</body>
+</html>
